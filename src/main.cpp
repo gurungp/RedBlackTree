@@ -612,7 +612,7 @@ public:
                     return;
 
             }
-            else if(n!=root and r==nullptr) // to be tested
+            else if(n!=root and r==nullptr) 
             {
                 if(n->val < n->parent->val)
                     n->parent->left = nullptr;
@@ -636,10 +636,13 @@ public:
                
                 r->left = root->left;
                 root->left->parent = r;
+                root->right->parent = r;
                 if(r->parent!=n)
+                {
+                    r->parent->left = r->right;
                     r->right = n->right;
+                }
                 
-
                 r->parent = nullptr;
                 delete root;
                 root = r;
@@ -650,12 +653,18 @@ public:
             }
             else if (n!=root and r!=nullptr)
             {
-                g= n->parent;
-                p = r->parent;
+                g= n->parent; // X
+                p = r->parent; // 17
 
                 r->left = n->left;
+                n->left->parent = r;
+                n->right->parent = r;
+
                 if(r->parent!=n)
-                    r->right = n->right;     
+                {
+                    r->parent->left = r->right;
+                    r->right = n->right;    
+                } 
 
                 if (g->val > n->val) // n is on the left
                 {
@@ -665,13 +674,8 @@ public:
                 {
                     g->right = r;
                 }
-                if(r->val > p->val) // r is on the right
-                {
-                    p->right = nullptr;
-                }
-                else{
-                    p->left = nullptr;
-                }
+               
+                
                 r->parent = g;
                 delete_fixup(x,w);
 
@@ -852,7 +856,8 @@ int main(int, char**){
     std::cout << " \n TESTING DELETE \n" << std::endl;
     
     //------------------------TESTING-DELETE------------------------
-    
+    // testing every possible cases based on this youtube tutorial and example: 
+    // https://www.youtube.com/watch?v=eoQpRtMpA9I
     RBTree example1(13);
     example1.insertNode(8);
     example1.insertNode(17);
@@ -1002,10 +1007,6 @@ int main(int, char**){
     example7.insertNode(22);
     example7.insertNode(27);
 
-    // example6.find(2)->color = Color::Red;
-    // example6.find(1)->color = Color::Black;
-    // example6.find(4)->color = Color::Black;
-    
     
     std::cout << " \n" << std::endl;
     std::cout << " Example 7" << std::endl;
@@ -1018,6 +1019,76 @@ int main(int, char**){
 
 
 
+    // EXAMPLE 8 
+    RBTree example8(13);
+    example8.insertNode(17);
+    example8.insertNode(8);
+    example8.insertNode(1);
+    example8.insertNode(11);
+    example8.insertNode(15);
+    example8.insertNode(25);
+    example8.insertNode(6);
+    example8.insertNode(22);
+    example8.insertNode(27);
+
+    
+    std::cout << " \n" << std::endl;
+    std::cout << " Example 8" << std::endl;
+    std::cout << " \n" << std::endl;
+    example8.print();
+    std::cout << " \n Deleting 8" << std::endl;
+    example8.deleteVal(8);
+    std::cout << " \n" << std::endl;
+    example8.print();
+
+
+    // EXAMPLE 9 
+    RBTree example9(7);
+    example9.insertNode(3);
+    example9.insertNode(18);
+    example9.insertNode(10);
+    example9.insertNode(22);
+    example9.insertNode(8);
+    example9.insertNode(11);
+    example9.insertNode(26);
+
+    example9.find(18)->val = 11;
+    example9.find(11)->val = 18;
+
+    
+    std::cout << " \n" << std::endl;
+    std::cout << " Example 9" << std::endl;
+    std::cout << " \n" << std::endl;
+    example9.print();
+    std::cout << " \n Deleting 3" << std::endl;
+    example9.deleteVal(3);
+    std::cout << " \n" << std::endl;
+    example9.print();
+
+
+
+
+    // EXAMPLE 10 
+    RBTree example10(13);
+    example10.insertNode(17);
+    example10.insertNode(8);
+    example10.insertNode(1);
+    example10.insertNode(11);
+    example10.insertNode(15);
+    example10.insertNode(25);
+    example10.insertNode(6);
+    example10.insertNode(22);
+    example10.insertNode(27);
+
+    
+    std::cout << " \n" << std::endl;
+    std::cout << " Example 10" << std::endl;
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << " \n Deleting 10" << std::endl;
+    example10.deleteVal(11);
+    std::cout << " \n" << std::endl;
+    example10.print();
     std::cout << " \n END OF PROGRAM \n" << std::endl;
     return 0;
 }
