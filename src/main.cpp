@@ -40,6 +40,7 @@ public:
         root = new node(v);
         root->parent = nullptr;
         root->color = Color::Black;
+        size++;
     }
 
     ~RBTree(){
@@ -473,6 +474,7 @@ public:
                 if(n==root) // but n is never Red if its root so this is obsolete
                 {
                     root = nullptr;
+                    size--;
                     delete n;
                 }
                 else
@@ -487,6 +489,7 @@ public:
                             p->left = nullptr;
                         }
                         delete n;
+                        size--;
                         return;
                     }else
                     {
@@ -513,6 +516,7 @@ public:
                             n->right->parent = r;
                         }
                         delete n;
+                        size--;
                         return;
                         
                     }
@@ -544,6 +548,7 @@ public:
                 delete(n);
                 //Goto STEP 3
                 delete_fixup(x,w);
+                size--;
                 return;
             }
         }
@@ -567,7 +572,7 @@ public:
                     r->right = n->right;
                 delete root;
                 root = r;
-                
+                size--;
             }
             else
             {
@@ -588,13 +593,14 @@ public:
                 }
                 if(r->val > p->val) // r is on the right
                 {
-                    p->right = nullptr;
+                    r->right = nullptr;
                 }
                 else{
-                    p->left = nullptr;
+                    r->left = nullptr;
                 }
                 r->parent = g;
                 r->color = Color::Black;
+                size--;
                 return;
             }
         }
@@ -609,6 +615,7 @@ public:
             
                     root=nullptr;
                     delete n;
+                    size--;
                     return;
 
             }
@@ -620,6 +627,7 @@ public:
                     n->parent->right = nullptr;
                 delete n;
                 delete_fixup(x,w);
+                size--;
 
 
             }
@@ -647,7 +655,7 @@ public:
                 delete root;
                 root = r;
                 delete_fixup(x,w);
-
+                size--;
                 return;
                 
             }
@@ -678,7 +686,7 @@ public:
                 
                 r->parent = g;
                 delete_fixup(x,w);
-
+                size--;
                 return;
             }
         }
@@ -694,7 +702,7 @@ public:
         
     }
 
-    // void delete_fixup(node* n,node* r,node* x,node* w)
+
     void delete_fixup(node* x,node* w)
     {
         //Case 0
@@ -1079,7 +1087,11 @@ int main(int, char**){
     example10.insertNode(6);
     example10.insertNode(22);
     example10.insertNode(27);
-
+    
+    std::cout << " \n" << std::endl;
+    std::cout << " EXAMPLE 10 - INSERTED ALL ELEMENTS \n" << std::endl;
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
     
     std::cout << " \n" << std::endl;
     std::cout << " Example 10" << std::endl;
@@ -1089,6 +1101,71 @@ int main(int, char**){
     example10.deleteVal(11);
     std::cout << " \n" << std::endl;
     example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 15" << std::endl;
+    example10.deleteVal(15);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 1" << std::endl;
+    example10.deleteVal(1);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 13" << std::endl;
+    example10.deleteVal(13);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 25" << std::endl;
+    example10.deleteVal(25);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 6" << std::endl;
+    example10.deleteVal(6);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 27" << std::endl;
+    example10.deleteVal(27);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 22" << std::endl;
+    example10.deleteVal(22);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 17" << std::endl;
+    example10.deleteVal(17);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
+    std::cout << " \n \n" << std::endl;
+    std::cout << " \n Deleting 8" << std::endl;
+    example10.deleteVal(8);
+    std::cout << " \n" << std::endl;
+    example10.print();
+    std::cout << "Current Size : " << example10.size  << std::endl;
+    
     std::cout << " \n END OF PROGRAM \n" << std::endl;
     return 0;
 }
